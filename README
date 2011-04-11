@@ -1,0 +1,22 @@
+Kyfd - Release 0.0.1
+
+Kyfd is a general-purpose beam-search decoder for WFST-based data processing.
+
+REQUIREMENTS:
+  Kyfd has been tested under Linux and gcc (versions 4.1.2-4.3.3).
+  Two libraries are required to compile Kyfd:
+    xerces-c for configuration file XML parsing
+      http://xerces.apache.org/xerces-c/
+    OpenFst for implementation of basic WFST algorithms
+      http://www.openfst.org
+
+INSTALLATION:
+  Follow the GNU build system instructions in ./INSTALL
+
+USAGE:
+  To run the decoder, simply use
+    kyfd [options...] config.xml < input.txt > output.txt
+
+DOCUMENTATION:
+  Documentation can be viewed at http://www.phontron.com/kyfd
+  See ./NEWS for updates since the last release

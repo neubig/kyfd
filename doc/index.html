@@ -1,0 +1,70 @@
+<html>
+<head>
+    <title>Kyfd Version 0.0.1</title>
+</head>
+<body>
+
+<h1>Kyfd Version 0.0.1</h1>
+
+<p>This is the <a href="http://www.phontron.com/kyfd">Kyoto Fst Decoder</a> (Kyfd), a general purpose beam-search decoder for weighted finite state transducers (WFSTs). 
+It has been used for a number of applications including statistical machine translation, speaking style transformation, OCR correction, and speech segmentation.
+</p>
+
+<h2>Download/Install</h2>
+
+<p>Source files for Kyfd can be found <a href="https://sourceforge.net/projects/kyfd/files/">here</a>.</p>
+
+<p>Before installing Kyfd, <a href="http://www.openfst.org" target="_blank">OpenFst</a> and <a href="http://xerces.apache.org/xerces-c/" target="_blank">Xerces-C++</a> must be installed.</p>
+
+<h2>Program Documentation</h2>
+
+<h3>kyfd</h3>
+
+<p>The main executable in the Kyfd package is the Kyfd decoder.
+It can be run as follows.</p>
+
+<pre>
+kyfd [options...] config.xml
+</pre>
+
+<p>
+An example configuration file can be found <a href="example.xml">here</a>, with descriptions of the various options.
+Options specified at the command line will override options specified in the configuration file.
+</p>
+
+<h2>Tutorials</h2>
+
+<p>These are a few short tutorials on using the Kyfd decoder.</p>
+
+<ul>
+<li><b>Simple Modeling/Decoding</b> (Under Construction)</li>
+<li><b>Using Multiple Models and Outputting Components</b> (Under Construction)</li>
+<li><b>Training Log-Linear Weights</b> (Under Construction)</li>
+<li><b>Using Hierarchichal Failure Transitions</b> (Under Construction)</li>
+</ul>
+
+<h2>Development Information</h2>
+
+<p>Kyfd is currently developed solely by <a href="http://www.phontron.com">Graham Neubig</a>, but any additional developers are welcome. If you are interested, please send an email to kyfd@<img src="tail.png">.</p> 
+
+<p>Kyfd is released under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank">Apache License, Version 2.0</a></p>
+
+<h2>Revision History</h2>
+
+<h3>Kyfd - Release 0.0.2 (Upcoming)</h3>
+
+<ul>
+<li>Make the terminal symbol optional</li>
+</ul>
+
+<h3>Kyfd - Release 0.0.1 (9/2/2009)</h3>
+
+<ul>
+<li>Support for Beam-search or best-first decoding of WFST models</li>
+<li>Storing and output of the contribution of multiple models for later log-linear weight training</li>
+<li>Output of n-best lists</li>
+<li>Support for hierarchical failure transitions</li>
+</ul>
+
+</body>
+</html>

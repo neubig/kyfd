@@ -1,0 +1,15 @@
+
+Kyfd - Release 0.0.2 (Upcoming, changes are to be added)
+
+    * Make the terminal symbol optional
+
+Kyfd - Release 0.0.1 (9/2/2009)
+
+    The first release of the Kyfd decoder.
+    Includes:
+
+    * Support for Beam-search or best-first decoding of WFST models
+    * Storing and output of the contribution of multiple models for later 
+      log-linear weight training
+    * Output of n-best lists
+    * Support for hierarchical failure transitions

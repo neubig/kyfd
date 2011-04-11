@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<kyfd>
+
+
+    <!-- ====== Decoding Options ====== -->
+    <!-- The size of the beam to use for beam search. Beam search is done in
+        a two-pass fashion, first trimming the overall results using beam 
+        search, then using optimal search to find the n-best within the 
+        trimmed results. -->
+    <arg name="beam" value="100" />
+
+    <!-- Whether to compose FSTs statically or dynamically (lazily) 
+        during search. Static composition will often increase speed 
+        by removing states that are not coaccessible, but will use large 
+        amounts of memory for large or highly non-deterministic models -->
+    <arg name="staticsearch" value="true,false" />
+
+    <!-- The weights to give to each component. Counting starts at id 0 -->
+    <arg name="weights" value="1,1,0.2" />
+
+    <!-- Reload the model after a certain number of sentences. Can be used
+         to flush the memory of expanded states for dynamically composed models 
+         that become unmanagably large after a time. -->
+    <arg name="reload" value="50" />
+
+    <!-- ====== Input Options ====== -->
+    <!-- The type of input to use, there are three options:
+            text: flat text separated by spaces
+            std: input in OpenFst text FST format. A double line break
+                 indicates a new FST.
+            component: same as standard, but with component arcs (Not Implemented)
+    -->
+    <arg name="input" value="text" />
+    
+    <!-- A file containing the input symbols (in OpenFst format) -->
+    <arg name="isymbols" value="input.sym" />
+    
+    <!-- The symbol to use when an unknown symbol is encountered 
+        (default <unk>). Only applicable for text input. To ensure
+        proper output, the unknown symbol must be passed as-is through
+        the entire model. -->
+    <arg name="unknown" value="&lt;unk&gt;" />
+
+    <!-- A symbol that is appended to the end of every sentence for text input.
+         Default is <s>, but will be changed to null in a future version. -->
+    <arg name="terminal" value="&lt;s&gt;" />
+
+
+    <!-- ====== Output Options ====== -->
+    <!-- The type of output to produce.
+            text: flat text separated by spaces
+            score: text + a single overall score for the answers
+            component: score + separate weights for each of the component models
+    -->
+    <arg name="output" value="component" />
+    
+    <!-- A file containing the output symbols (in OpenFst format) -->
+    <arg name="osymbols" value="output.sym" />
+    
+    <!-- When using score or component output, multiply the output scores
+         by -1. -->
+    <arg name="negprob" value="true" />
+    
+    <!-- The number of results to print -->
+    <arg name="nbest" value="100" />
+
+    <!-- Whether or not to print multiple identical outputs in the n-best 
+         list (default: false) -->
+    <arg name="duplicates" value="false" />
+    
+    
+    <!-- ====== FST Definitions ====== -->
+    <!-- An example of a model definition -->
+    <fst type="arcsort" direction="input" method="static">
+        <fst type="project" direction="input" method="static">
+            <fst type="minimize" method="static">
+                <fst type="determinize" method="static">
+                    <fst type="compose" method="static">
+                        <fst file="model1.fst" />
+                        <fst file="model2.fst" id="0"/>
+                    </fst>
+                </fst>
+            </fst>
+        </fst>
+    </fst>
+
+    <!-- An example of a second model definition, when two are more top-level
+         models are defined, they will be decoded in sequence. -->
+    <fst type="intersect" method="dynamic">
+        <fst file="model3.fst" id="1"/>
+        <fst file="model4.fst" id="2"/>
+    </fst>
+
+</kyfd>
