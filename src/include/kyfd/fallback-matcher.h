@@ -67,11 +67,20 @@ class FallbackMatcher {
                 state_(kNoStateId),
                 phi_loop_(matcher.phi_loop_) {}
 
+    FallbackMatcher *Copy(bool safe = false) const {
+        return new FallbackMatcher(*this);
+    }
+
+
     ~FallbackMatcher() {
         delete matcher_;
         // this does not own its fallback map
         // if(fallbacks_)
         //     delete fallbacks_;
+    }
+
+    const FST &GetFst() const {
+        return matcher_->GetFst();    
     }
 
     MatchType Type(bool test) const { return matcher_->Type(test); }

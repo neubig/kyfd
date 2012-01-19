@@ -40,7 +40,7 @@ DecoderConfigImpl::DecoderConfigImpl() :
     compRoots_(), stdRoots_(), iSymbols_(0), oSymbols_(0), n_(1),
     iUnkId_(-1), iBrId_(-1), oUnkId_(-1), oBrId_(-1), count_(1),
     beamWidth_(0), trimWidth_(0), printDuplicates_(false), printInput_(false), 
-    negProb_(false), staticSearch_(), reload_(0), 
+    printAll_(false), negProb_(false), staticSearch_(), reload_(0), 
     inFormat_(TEXT_INPUT), outFormat_(TEXT_OUTPUT) {
     
     // set up xerces infrastructure
@@ -255,6 +255,8 @@ void DecoderConfig::handleArgument(const char* name, const char* val) {
         setPrintDuplicates(!strcmp(val, "true"));
     else if(!strcmp(name, "printin"))
         setPrintInput(!strcmp(val, "true"));
+    else if(!strcmp(name, "printall"))
+        setPrintAll(!strcmp(val, "true"));
     else if(!strcmp(name, "negprob"))
         setNegativeProbabilities(!strcmp(val, "true"));
     else if(!strcmp(name, "beam")) {

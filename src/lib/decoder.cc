@@ -156,26 +156,43 @@ void Decoder::printPaths(
 
         while(ok) {
             weight = Times(weight, arc.weight);
-            // print the output
-	        if(arc.olabel != 0 && arc.olabel != (bothInput?config_.getInputTerminalId():config_.getOutputTerminalId())) {
-                if(printed)
-                    resultStream << " ";
-	        	if(arc.olabel==(bothInput?config_.getInputUnknownId():config_.getOutputUnknownId())) {
-                    if(oUnkId < 0 || oUnkId >= unknowns_.size())
-                        throw runtime_error("Unmatched number of unknown symbols in output");
-                    resultStream << unknowns_[oUnkId++];
+            if(config_.isPrintAll()) {
+                if(arc.ilabel != 0 || arc.olabel != 0) {
+                    if(printed)
+                        resultStream << " ";
+	            	if(arc.ilabel==config_.getInputUnknownId())
+                        resultStream << unknowns_[iUnkId++];
+	            	else 
+                        resultStream << config_.getInputSymbol(arc.ilabel);
+                    resultStream << "|";
+	            	if(arc.olabel==config_.getOutputUnknownId())
+                        resultStream << unknowns_[oUnkId++];
+	            	else 
+                        resultStream << config_.getOutputSymbol(arc.olabel);
+                    printed = true;
                 }
-	        	else 
-                    resultStream << (bothInput?config_.getInputSymbol(arc.olabel):config_.getOutputSymbol(arc.olabel));
-                printed = true;
-	        }
-            // print the input
-	        if(config_.isPrintInput() && arc.ilabel != 0 && arc.ilabel != config_.getInputTerminalId()) {
-	        	if(arc.ilabel==config_.getInputUnknownId())
-                    input << " " << unknowns_[iUnkId++];
-	        	else 
-                    input << " " << config_.getInputSymbol(arc.ilabel);
-	        }
+            } else {
+                // print the input
+	            if(config_.isPrintInput() && arc.ilabel != 0 && arc.ilabel != config_.getInputTerminalId()) {
+	            	if(arc.ilabel==config_.getInputUnknownId())
+                        input << " " << unknowns_[iUnkId++];
+	            	else 
+                        input << " " << config_.getInputSymbol(arc.ilabel);
+	            }
+                // print the output
+	            if(arc.olabel != 0 && arc.olabel != (bothInput?config_.getInputTerminalId():config_.getOutputTerminalId())) {
+                    if(printed)
+                        resultStream << " ";
+	            	if(arc.olabel==(bothInput?config_.getInputUnknownId():config_.getOutputUnknownId())) {
+                        if(oUnkId < 0 || oUnkId >= unknowns_.size())
+                            throw runtime_error("Unmatched number of unknown symbols in output");
+                        resultStream << unknowns_[oUnkId++];
+                    }
+	            	else 
+                        resultStream << (bothInput?config_.getInputSymbol(arc.olabel):config_.getOutputSymbol(arc.olabel));
+                    printed = true;
+	            }
+            }
             // get the next value
             ArcIterator< Fst<A> > aiter2(bestFst, arc.nextstate);
             ok = !aiter2.Done();
@@ -237,7 +254,8 @@ fst::Fst<A> * Decoder::findBestPaths(const fst::Fst<A> * input,
     
     currTime_[timeStep_++] = clock();
     // remove duplicate paths if called for
-    if(config_.getN() > 1 && !config_.isPrintDuplicates()) {
+    bool removeDup = !config_.isPrintDuplicates() && !(config_.isPrintAll() || config_.isPrintInput());
+    if(config_.getN() > 1 && removeDup) {
         VectorFst<A> * vecFst = new VectorFst<A>(*searchFst);
         Project(vecFst, PROJECT_OUTPUT);
         RmEpsilon(vecFst);
@@ -248,7 +266,7 @@ fst::Fst<A> * Decoder::findBestPaths(const fst::Fst<A> * input,
     currTime_[timeStep_++] = clock();
     // find the shortest path
     VectorFst<A> * bestFst = new VectorFst<A>;
-    ShortestPath(*searchFst, bestFst, config_.getN(), !config_.isPrintDuplicates());
+    ShortestPath(*searchFst, bestFst, config_.getN(), removeDup);
     delete searchFst;
     
     return bestFst;
