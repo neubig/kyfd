@@ -142,7 +142,15 @@ public:
 
     // set the value of the component
     inline float Value() const { return (getWidth()>0?getComponent(0):0.0F); }
-    
+
+    // Check that it works
+    bool Member() const {
+      return Value() == Value() && Value() != FloatLimits<float>::kNegInfinity;
+    }
+
+    static const ComponentWeight NoWeight() {
+      return ComponentWeight(FloatLimits<float>::kNumberBad); }
+      
     istream &Read(istream &strm) {
         if(ptr_ && (--ptr_[0] != 0)) {
             delete [] ptr_;
