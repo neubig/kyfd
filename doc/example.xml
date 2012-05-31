@@ -67,6 +67,10 @@
     <!-- Whether or not to print multiple identical outputs in the n-best 
          list (default: false) -->
     <arg name="duplicates" value="false" />
+
+    <!-- Specify this as "true" if you want to see aligned input and output
+         (default: false) -->
+    <arg name="printall" value="false" />
     
     
     <!-- ====== FST Definitions ====== -->
