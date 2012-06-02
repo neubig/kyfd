@@ -78,7 +78,7 @@ struct WeightedComponentMapper {
             width = idx_+2;
         float comp[width];
 
-        comp[0] =  arc.weight.Value() * ( arc.weight.Value() == FloatLimits<float>::kPosInfinity ? 1 : weight_ );
+        comp[0] =  arc.weight.Value() * ( arc.weight.Value() == FloatLimits<float>::PosInfinity() ? 1 : weight_ );
         if(idxOk_) {
             for(unsigned char i = 1; i <= idx_; i++)
                 comp[i] = 0.0F;
@@ -105,7 +105,7 @@ struct WeightedMapper {
 
     StdArc operator()(const StdArc &arc) const {
         TropicalWeight ret( arc.weight.Value() *
-            ( arc.weight.Value() == FloatLimits<float>::kPosInfinity ? 1 : weight_ ) );
+            ( arc.weight.Value() == FloatLimits<float>::PosInfinity() ? 1 : weight_ ) );
         return StdArc(arc.ilabel, arc.olabel, ret, arc.nextstate);
     }
 

@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.63])
-AC_INIT([kyfd], [0.0.3], [kyfd@phontron.com])
+AC_INIT([kyfd], [0.0.4], [kyfd@phontron.com])
 AC_CONFIG_SRCDIR([src/lib/decoder.cc])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([

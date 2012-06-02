@@ -145,11 +145,11 @@ public:
 
     // Check that it works
     bool Member() const {
-      return Value() == Value() && Value() != FloatLimits<float>::kNegInfinity;
+      return Value() == Value() && Value() != FloatLimits<float>::NegInfinity();
     }
 
     static const ComponentWeight NoWeight() {
-      return ComponentWeight(FloatLimits<float>::kNumberBad); }
+      return ComponentWeight(FloatLimits<float>::NumberBad()); }
       
     istream &Read(istream &strm) {
         if(ptr_ && (--ptr_[0] != 0)) {
@@ -179,7 +179,7 @@ public:
     }
 
     static const ComponentWeight Zero() {
-        float comp[] = { FloatLimits<float>::kPosInfinity };
+        float comp[] = { FloatLimits<float>::PosInfinity() };
         return ComponentWeight(1, comp);
     }
   
@@ -225,9 +225,9 @@ inline ostream& operator<<(ostream& strm, const ComponentWeight &w) {
         for(unsigned short i = 0; i < w.getWidth(); i++) {
             if(i) strm << ",";
             const float comp = w.getComponent(i);
-            if(comp == FloatLimits<float>::kPosInfinity)
+            if(comp == FloatLimits<float>::PosInfinity())
                 strm << "Infinity";
-            else if(comp == FloatLimits<float>::kNegInfinity)
+            else if(comp == FloatLimits<float>::NegInfinity())
                 strm << "-Infinity";
             else if(comp != comp)
                 strm << "BadFloat";
@@ -277,9 +277,9 @@ inline ComponentWeight Times(const ComponentWeight &w1, const ComponentWeight &w
     unsigned short s1 = w1.getWidth(), s2 = w2.getWidth();
     if(s1 == 0)
         return w2;
-    else if(s2 == 0 || w1.Value() == FloatLimits<float>::kPosInfinity)
+    else if(s2 == 0 || w1.Value() == FloatLimits<float>::PosInfinity())
         return w1;
-    else if(w2.Value() == FloatLimits<float>::kPosInfinity)
+    else if(w2.Value() == FloatLimits<float>::PosInfinity())
         return w2;
     else {
         unsigned short s3 = max( s1, s2 );
