@@ -162,6 +162,7 @@ class FallbackMatcher {
         else
             return props & ~kString;
     }
+    virtual uint32 Flags() const { return 0; }
 
 private:
     M *matcher_;
