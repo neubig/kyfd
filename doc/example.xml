@@ -71,6 +71,11 @@
     <!-- Specify this as "true" if you want to see aligned input and output
          (default: false) -->
     <arg name="printall" value="false" />
+
+    <!-- Specify this as "true" if you don't want the highest probability
+         output, but instead want to sample from the probability distribution
+         (default: false) -->
+    <arg name="sample" value="false" />
     
     
     <!-- ====== FST Definitions ====== -->

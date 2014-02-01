@@ -24,6 +24,7 @@
 #include <fst/compose.h>
 #include <kyfd/decoder.h>
 #include <kyfd/beam-trim.h>
+#include <kyfd/sampgen.h>
 
 using namespace std;
 using namespace fst;
@@ -264,9 +265,13 @@ fst::Fst<A> * Decoder::findBestPaths(const fst::Fst<A> * input,
     }
     
     currTime_[timeStep_++] = clock();
-    // find the shortest path
+    // find the shortest path, or sample as necessary
     VectorFst<A> * bestFst = new VectorFst<A>;
-    ShortestPath(*searchFst, bestFst, config_.getN(), removeDup);
+    if(config_.isSample()) {
+        SampGen(*searchFst, *bestFst, config_.getN());
+    } else {
+        ShortestPath(*searchFst, bestFst, config_.getN(), removeDup);
+    }
     delete searchFst;
     
     return bestFst;

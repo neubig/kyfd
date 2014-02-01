@@ -78,6 +78,7 @@ private:
     bool printInput_;
     bool printAll_;
     bool printDuplicates_;
+    bool sample_;
     bool negProb_;
     std::vector< bool > staticSearch_;
     
@@ -157,6 +158,8 @@ public:
     void setPrintInput(bool printInput) { impl_->printInput_ = printInput; }
     bool isPrintAll() const { return impl_->printAll_; }
     void setPrintAll(bool printAll) { impl_->printAll_ = printAll; }
+    bool isSample() const { return impl_->sample_; }
+    void setSample(bool sample) { impl_->sample_ = sample; }
     bool isNegativeProbabilities() const { return impl_->negProb_; }
     void setNegativeProbabilities(bool negProb) { impl_->negProb_ = negProb; }
     bool isStaticSearch(unsigned id) const { return (id < impl_->staticSearch_.size() && impl_->staticSearch_[id]); }
