@@ -11,7 +11,13 @@ REQUIREMENTS:
       http://www.openfst.org
 
 INSTALLATION:
-  Follow the GNU build system instructions in ./INSTALL
+  Kyfd uses the GNU build system.
+
+  If you have checked out from git, you will be missing some of the files
+  needed to build, generate them by running
+    ./bootstrap
+
+  After this, follow the instructions in ./INSTALL
 
 USAGE:
   To run the decoder, simply use
