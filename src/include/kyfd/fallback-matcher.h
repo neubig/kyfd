@@ -33,7 +33,7 @@ namespace fst {
 // A heirarchical failure transition model that allows multiple levels of
 //  fallback for phi-transitions
 template <class M>
-class FallbackMatcher {
+class FallbackMatcher: public MatcherBase<class M::Arc> {
  public:
     typedef typename M::FST FST;
     typedef typename M::Arc Arc;
